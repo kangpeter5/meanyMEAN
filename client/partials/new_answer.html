@@ -1,0 +1,33 @@
+<div>
+	<nav>
+	    <a href="#/success">Home</a> | 
+	    <a href="#/new_question">Add a question</a> | 
+	    <a href="#/">logout</a>
+ 	</nav>
+
+ 	<hr/>
+
+ 	<div>
+ 		<h1>{{currentUser.name}} asked: </h1>
+ 		<h3>Question: {{oneQuestion.data}}</h3>
+ 		<h3>Description: {{oneQuestion.data.desc}}</h3>
+
+		<form>
+			<fieldset>
+				<legend>Your Answer: </legend>
+				<p>
+					<label>Answer: </label>
+					<p></p>
+					<textarea ng-model="newAnswer.content" cols='70' rows='5'></textarea>
+				</p>
+				<p>
+					<label>Description(optional): </label>
+					<p></p>
+					<textarea ng-model="newAnswer.desc" cols='70' rows='5'></textarea>
+				</p>
+				<button ng-click="addAnswer(newAnswer, oneQuestion,currentUser)">Add Question</button>
+			</fieldset>
+		</form>
+		<a href="#/success">cancel</a>
+ 	</div>
+</div>
