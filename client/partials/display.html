@@ -58,7 +58,7 @@
     <div class="form-group">
       <label for="pricePerCan" class="col-xs-6 control-label">Price Per Can</label>
       <div class="col-xs-6">
-        <input type="hidden" value="4.29" ng-model="ppcTwenty">
+        <input type="hidden" ng-model="ppcTwenty" value="4.29" >
         <div class="form-control answer-to-input">4.29</div>
       </div>
     </div>
@@ -72,7 +72,8 @@
     <div class="form-group">
       <label for="costToRetail" class="col-xs-6 control-label">Cost to Retail</label>
       <div class="col-xs-6">
-        <input type="text" class="form-control answer-to-input" value="{{ppcSixteen+ppcTwenty}}">
+        <input type="hidden" class="form-control answer-to-input" ng-model="costToRetail" value="{{ppcSixteen+ppcTwenty}}" />
+        <div class="form-control answer-to-input">{{ ppcSixteen+ppcTwenty }}</div>
       </div> 
     </div>
     <div class="form-group">

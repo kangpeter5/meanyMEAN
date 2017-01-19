@@ -66,7 +66,7 @@ form{
 }
 .form-group input, .answer-to-input{
 	font-size: 170%;
-	height: 1%;
+	height: 40px;
 	font-weight: bold;
 	text-align: center;
 	vertical-align: middle;
@@ -117,8 +117,14 @@ form{
 	nav #title{
 		font-size: 141%;
 	}
+	.container h1{
+		font-size: 200%;
+	}
 	.form-group .control-label{
 		font-size: 123%;
+	}
+	.form-group input, .answer-to-input{
+		height: 50px;
 	}
 }
 
@@ -127,8 +133,14 @@ form{
 	nav #title{
 		font-size: 158%;
 	}
+	.container h1{
+		font-size: 215%;
+	}
 	.form-group .control-label {
 	    font-size: 137%;
+	}
+	.form-group input, .answer-to-input{
+		height: 55px;
 	}
 }
 

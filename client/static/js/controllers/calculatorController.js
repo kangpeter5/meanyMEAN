@@ -1,5 +1,4 @@
 function calculatorController($scope){
-
 	// Sixteen oz
 	$scope.costPerCanSixteen = function(){
 		var costPerCanSixteen = 0;
