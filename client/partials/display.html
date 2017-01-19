@@ -17,14 +17,14 @@
     <div class="form-group">
       <label for="canCost" class="col-xs-6 control-label">Cost Per Can</label>
       <div class="col-xs-6">
-        <input type="hidden" value="{{costPerCanSixteen()}}" ng-model="cpcSixteen"/>
+        <input type="hidden" value="{{costPerCanSixteen()}}" ng-model="costPerCanSixteen"/>
         <div class="form-control answer-to-input">{{ costPerCanSixteen() }}</div>
       </div>
     </div>
     <div class="form-group">
       <label for="pricePerCan" class="col-xs-6 control-label">Price Per Can</label>
       <div class="col-xs-6">
-        <input type="hidden" value="3.165" ng-model="ppcSixteen">
+        <input type="hidden" value="3.165" ng-model="ppcSixteen" value="{{ 6.33/2 }}">
         <div class="form-control answer-to-input">{{ 6.33/2 }}</div>
       </div>
       </div>
@@ -51,7 +51,7 @@
     <div class="form-group">
       <label for="canCost" class="col-xs-6 control-label">Cost Per Can</label>
       <div class="col-xs-6">
-        <input type="hidden" value="{{costPerCanTwenty()}}" ng-model="cpcTwenty">
+        <input type="hidden" value="{{costPerCanTwenty()}}" ng-model="costPerCanTwenty">
         <div class="form-control answer-to-input">{{ costPerCanTwenty() }}</div>
       </div>
     </div>
@@ -72,32 +72,35 @@
     <div class="form-group">
       <label for="costToRetail" class="col-xs-6 control-label">Cost to Retail</label>
       <div class="col-xs-6">
-        <input type="hidden" class="form-control answer-to-input" ng-model="costToRetail" value="{{ppcSixteen+ppcTwenty}}" />
-        <div class="form-control answer-to-input">{{ ppcSixteen+ppcTwenty }}</div>
+        <input type="hidden" ng-model="costToRetail" value="{{ppcSixteen+ppcTwenty}}" />
+        <div class="form-control answer-to-input">{{ costToRetail() }}</div>
       </div> 
     </div>
     <div class="form-group">
       <label for="sixteenProfit" class="col-xs-6 control-label">16oz. Profit <em>(per can)</em></label>
       <div class="col-xs-6">
-        <input type="text" class="form-control answer-to-input" value="{{ppcSixteen-cpcSixteen}}" ng-model="profitSixteen">
+        <input type="hidden" ng-model="profitSixteen" value="{{ profitSixteen(priceSixteen,casesSixteen) }}" >
+        <div class="form-control answer-to-input">{{ profitSixteen(priceSixteen, casesSixteen) }}</div>
       </div>
     </div>
     <div class="form-group">
       <label for="twentyProfit" class="col-xs-6 control-label">20ox. Profit <em>(per can)</em></label>
       <div class="col-xs-6">
-        <input type="text" class="form-control answer-to-input" value="{{ppcTwenty-cpcTwenty}}" ng-model="profitTwenty">
+        <input type="hidden" ng-model="profitTwenty" value="{{ profitTwenty(priceTwenty,casesTwenty) }}" >
+        <div class="form-control answer-to-input">{{ profitTwenty(priceTwenty, casesTwenty) }}</div>
       </div>
     </div>
     <div class="form-group">
       <label for="dispProfit" class="col-xs-6 control-label">Display Profit</label>
       <div class="col-xs-6">
-        <input type="text" class="form-control answer-to-input" value="{{ (casesSixteen*12)*profitSixteen + (casesTwenty*12)*profitTwenty }}" ng-model="profitDisplay">
+        <input type="hidden" value="{{ profitDisplay(casesSixteen, casesTwenty,profitSixteen, profitTwenty) }}" ng-model="profitDisplay">
+        <div class="form-control answer-to-input">{{ profitDisplay(casesSixteen, casesTwenty, profitSixteen, profitTwenty) }}</div>
       </div>
     </div>
     <div class="form-group">
       <label for="profitMargin" class="col-xs-6 control-label">Profit Margin</label>
       <div class="col-xs-6">
-        <div class="form-control answer-to-input">{{ profitDisplay/revenue }}</div>
+        <div class="form-control answer-to-input">{{ profitMargin(profitDisplay, revenue) }}</div>
       </div>
     </div>
   </form>
