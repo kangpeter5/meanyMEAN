@@ -129,7 +129,7 @@ form{
 }
 
 /* iPhone 6 Plus & 6s Plus */
-@media only screen and (min-width: 414px){
+@media only screen and (min-width: 413px){
 	nav #title{
 		font-size: 158%;
 	}
@@ -145,7 +145,29 @@ form{
 }
 
 /* tablet */
-@media only screen and (min-width: 768px){
+@media only screen and (min-width: 600px){
+	nav #title {
+	    font-size: 300%;
+	    margin-top: 2%;
+	}
+	.container h1{
+		font-size: 51px;
+	}
+	.form-group .control-label {
+		position: relative;
+		top: 20px;
+	    font-size: 33px;
+	}
+	.form-group input, .answer-to-input{
+		font-size: 50px;
+		height: 85px;
+		font-weight: bold;
+		text-align: center;
+		vertical-align: middle;
+	}
+}
+/* iPad */
+@media only screen and (min-width: 767px){
 	nav #title {
 	    font-size: 300%;
 	    margin-top: 2%;
