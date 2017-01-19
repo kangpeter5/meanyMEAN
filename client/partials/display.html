@@ -9,21 +9,24 @@
       </div>
     </div>
     <div class="form-group">
-      <label for="inputCost" class="col-sm-6 control-label">Cost Per Case</label>
-      <div class="col-sm-offset-1 col-sm-5">
+      <label for="inputCost" class="col-xs-6 control-label">Cost Per Case</label>
+      <div class="col-xs-6">
         <input type="number" min="0.01" step="0.01" max="2500" class="form-control" placeholder="29.40" ng-model="priceSixteen"/>
       </div>
     </div>
     <div class="form-group">
-      <label for="canCost" class="col-sm-6 control-label">Cost Per Can</label>
-      <div class="col-sm-offset-1 col-sm-5">
-        <input type="text" class="form-control answer-to-input" value="{{costPerCanSixteen()}}" ng-model="cpcSixteen">
+      <label for="canCost" class="col-xs-6 control-label">Cost Per Can</label>
+      <div class="col-xs-6">
+        <input type="hidden" value="{{costPerCanSixteen()}}" ng-model="cpcSixteen"/>
+        <div class="form-control answer-to-input">{{ costPerCanSixteen() }}</div>
       </div>
     </div>
     <div class="form-group">
-      <label for="pricePerCan" class="col-sm-6 control-label">Price Per Can</label>
-      <div class="col-sm-offset-1 col-sm-5">
-        <input type="text" class="form-control answer-to-input" value="3.165" ng-model="ppcSixteen">
+      <label for="pricePerCan" class="col-xs-6 control-label">Price Per Can</label>
+      <div class="col-xs-6">
+        <input type="hidden" value="3.165" ng-model="ppcSixteen">
+        <div class="form-control answer-to-input">{{ 6.33/2 }}</div>
+      </div>
       </div>
     </div>
   </form>
@@ -34,27 +37,29 @@
   <h1>20 <span id="unbold">OUNCE</span></h1>
   <form class="form-horizontal">
     <div class="form-group">
-      <label for="inputCases" class="col-sm-6 control-label">Amount of Cases</label>
-      <div class="col-sm-offset-1 col-sm-5">
+      <label for="inputCases" class="col-xs-6 control-label">Amount of Cases</label>
+      <div class="col-xs-6">
         <input type="number" min="0.01" step="0.01" max="2500" class="form-control" ng-model="casesTwenty">
       </div>
     </div>
     <div class="form-group">
-      <label for="inputCost" class="col-sm-6 control-label">Cost Per Case</label>
-      <div class="col-sm-offset-1 col-sm-5">
+      <label for="inputCost" class="col-xs-6 control-label">Cost Per Case</label>
+      <div class="col-xs-6">
         <input type="number" min="0.01" step="0.01" max="2500" class="form-control" ng-model="priceTwenty" placeholder="35.70">
       </div>
     </div>
     <div class="form-group">
-      <label for="canCost" class="col-sm-6 control-label">Cost Per Can</label>
-      <div class="col-sm-offset-1 col-sm-5">
-        <input type="text" class="form-control answer-to-input" value="{{costPerCanTwenty()}}" ng-model="cpcTwenty">
+      <label for="canCost" class="col-xs-6 control-label">Cost Per Can</label>
+      <div class="col-xs-6">
+        <input type="hidden" value="{{costPerCanTwenty()}}" ng-model="cpcTwenty">
+        <div class="form-control answer-to-input">{{ costPerCanTwenty() }}</div>
       </div>
     </div>
     <div class="form-group">
-      <label for="pricePerCan" class="col-sm-6 control-label">Price Per Can</label>
-      <div class="col-sm-offset-1 col-sm-5">
-        <input type="text" class="form-control answer-to-input" value="4.29" ng-model="ppcTwenty">
+      <label for="pricePerCan" class="col-xs-6 control-label">Price Per Can</label>
+      <div class="col-xs-6">
+        <input type="hidden" value="4.29" ng-model="ppcTwenty">
+        <div class="form-control answer-to-input">4.29</div>
       </div>
     </div>
   </form>
@@ -65,32 +70,32 @@
   <h1>TOTAL <span id="unbold">COST & PROFIT</span></h1>
   <form class="form-horizontal">
     <div class="form-group">
-      <label for="costToRetail" class="col-sm-6 control-label">Cost to Retail</label>
-      <div class="col-sm-offset-1 col-sm-5">
+      <label for="costToRetail" class="col-xs-6 control-label">Cost to Retail</label>
+      <div class="col-xs-6">
         <input type="text" class="form-control answer-to-input" value="{{ppcSixteen+ppcTwenty}}">
       </div> 
     </div>
     <div class="form-group">
-      <label for="sixteenProfit" class="col-sm-6 control-label">16oz. Profit <em>(per can)</em></label>
-      <div class="col-sm-offset-1 col-sm-5">
+      <label for="sixteenProfit" class="col-xs-6 control-label">16oz. Profit <em>(per can)</em></label>
+      <div class="col-xs-6">
         <input type="text" class="form-control answer-to-input" value="{{ppcSixteen-cpcSixteen}}" ng-model="profitSixteen">
       </div>
     </div>
     <div class="form-group">
-      <label for="twentyProfit" class="col-sm-6 control-label">20ox. Profit (per can)</label>
-      <div class="col-sm-offset-1 col-sm-5">
+      <label for="twentyProfit" class="col-xs-6 control-label">20ox. Profit <em>(per can)</em></label>
+      <div class="col-xs-6">
         <input type="text" class="form-control answer-to-input" value="{{ppcTwenty-cpcTwenty}}" ng-model="profitTwenty">
       </div>
     </div>
     <div class="form-group">
-      <label for="dispProfit" class="col-sm-6 control-label">Display Profit</label>
-      <div class="col-sm-offset-1 col-sm-5">
+      <label for="dispProfit" class="col-xs-6 control-label">Display Profit</label>
+      <div class="col-xs-6">
         <input type="text" class="form-control answer-to-input" value="{{ (casesSixteen*12)*profitSixteen + (casesTwenty*12)*profitTwenty }}" ng-model="profitDisplay">
       </div>
     </div>
     <div class="form-group">
-      <label for="profitMargin" class="col-sm-6 control-label">Profit Margin</label>
-      <div class="col-sm-offset-1 col-sm-5">
+      <label for="profitMargin" class="col-xs-6 control-label">Profit Margin</label>
+      <div class="col-xs-6">
         <div class="form-control answer-to-input">{{ profitDisplay/revenue }}</div>
       </div>
     </div>
