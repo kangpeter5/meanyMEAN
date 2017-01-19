@@ -1,10 +1,18 @@
 function calculatorController($scope){
-	// $scope.parseFloat = function(value){
-	// 	return parseFloat(value);
-	// }
 
 	// Sixteen oz
 	$scope.costPerCanSixteen = function(){
-		return $scope.priceSixteen/(24*$scope.casesSixteen);
+		var priceSixteen = $scope.priceSixteen;
+		var casesSixteen = $scope.casesSixteen;
+	
+		return priceSixteen/(24*casesSixteen);
+	};
+
+	// Twenty oz
+	$scope.costPerCanTwenty = function(){
+		var priceTwenty = $scope.priceTwenty;
+		var casesTwenty = $scope.casesTwenty;
+		
+		return priceTwenty/(24*casesTwenty);
 	};
 };

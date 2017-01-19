@@ -1,144 +1,60 @@
 <!DOCTYPE html>
 <html ng-app='myApp'>
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Display Drive Profit Calculator RBNA</title>
 
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
   <link rel="stylesheet" type="text/css" href="./static/css/style.css">
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+  <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular-route.min.js"></script>
 
   <!-- Controllers -->
   <script type="text/javascript" src="./static/js/controllers/calculatorController.js"></script>
 
   <script>
-    // angular.module('myApp', ['ngRoute'])
-    //   .config(function($routeProvider){
-    //     $routeProvider
-    //       .when('/', {
-    //         templateUrl: "./partials/display.html",
-    //         controller: "calculatorController"
-    //       })
-    //       .otherwise({
-    //         redirectTo: '/'
-    //       })
-    //   })
-    //   .controller('calculatorController', calculatorController);
+    angular.module('myApp', ['ngRoute'])
+      .config(function($routeProvider){
+        $routeProvider
+          .when('/', {
+            templateUrl: "./partials/display.html",
+            controller: "calculatorController"
+          })
+          .otherwise({
+            redirectTo: '/'
+          })
+      })
+      .controller('calculatorController', calculatorController);
+
     function calculatorController($scope){
+
       // Sixteen oz
       $scope.costPerCanSixteen = function(){
-        return $scope.priceSixteen/(24*$scope.casesSixteen);
+        var priceSixteen = $scope.priceSixteen;
+        var casesSixteen = $scope.casesSixteen;
+      
+        return priceSixteen/(24*casesSixteen);
+      };
+
+      // Twenty oz
+      $scope.costPerCanTwenty = function(){
+        var priceTwenty = $scope.priceTwenty;
+        var casesTwenty = $scope.casesTwenty;
+        
+        return priceTwenty/(24*casesTwenty);
       };
     };
   </script>
 </head>
 <body>
   <nav>
-    <a href="/"><img src="./static/img/rbna_logo.png"></a>
+    <img src="./static/img/rbna_logo.png">
     <div id="title">DISPLAY DRIVE PROFIT CALCULATOR</div>
   </nav>
 
   <div class="container">
-    <div id="sixteen-oz" ng-controller="calculatorController">
-      <div class='hr'></div>
-      <h1>16 <span id="unbold">OUNCE</span></h1>
-      <form class="form-horizontal">
-        <div class="form-group">
-          <label for="inputCases" class="col-sm-6 control-label">Amount of Cases</label>
-          <div class="col-sm-offset-1 col-sm-5">
-            <input type="number" min="0.01" step="0.01" max="2500" class="form-control" ng-model="casesSixteen"/>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="inputCost" class="col-sm-6 control-label">Cost Per Case</label>
-          <div class="col-sm-offset-1 col-sm-5">
-            <input type="number" min="0.01" step="0.01" max="2500" class="form-control" placeholder="29.40" ng-model="priceSixteen"/>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="canCost" class="col-sm-6 control-label">Cost Per Can</label>
-          <div class="col-sm-offset-1 col-sm-5">
-            <input type="text" class="form-control answer-to-input" value="{{costPerCanSixteen()}}"/>
-          </div>
-        </div>
-        <div class="form-group">
-          <label for="pricePerCan" class="col-sm-6 control-label">Price Per Can</label>
-          <div class="col-sm-offset-1 col-sm-5">
-            <input type="text" class="form-control answer-to-input" value="{{costPerCanSixteen()}}">
-          </div>
-        </div>
-      </form>
-    </div>
-
-      <div id="twenty-oz">
-        <div class='hr'></div>
-        <h1>20 <span id="unbold">OUNCE</span></h1>
-        <form class="form-horizontal">
-          <div class="form-group">
-            <label for="inputCases" class="col-sm-6 control-label">Amount of Cases</label>
-            <div class="col-sm-offset-1 col-sm-5">
-              <input type="number" min="0.01" step="0.01" max="2500" class="form-control" ng-model="priceTwenty">
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="inputCost" class="col-sm-6 control-label">Cost Per Case</label>
-            <div class="col-sm-offset-1 col-sm-5">
-              <input type="number" min="0.01" step="0.01" max="2500" class="form-control" ng-model="casesTwenty" placeholder="35.70">
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="canCost" class="col-sm-6 control-label">Cost Per Can</label>
-            <div class="col-sm-offset-1 col-sm-5">
-              <input type="text" class="form-control" value="{{priceTwenty/(24*casesTwenty)}}">
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="pricePerCan" class="col-sm-6 control-label">Price Per Can</label>
-            <div class="col-sm-offset-1 col-sm-5">
-              <div class="form-control answer-to-input">{{ }}</div>
-            </div>
-          </div>
-        </form>
-      </div>
-
-      <div id="total-cp">
-        <div class='hr'></div>
-        <h1>TOTAL <span id="unbold">COST & PROFIT</span></h1>
-        <form class="form-horizontal">
-          <div class="form-group">
-            <label for="costToRetail" class="col-sm-6 control-label">Cost to Retail</label>
-            <div class="col-sm-offset-1 col-sm-5">
-              <input type="text" class="form-control" value="{{priceTwenty/(24*casesTwenty)}}">
-            </div> 
-          </div>
-          <div class="form-group">
-            <label for="sixteenProfit" class="col-sm-6 control-label">16oz. Profit <em>(per can)</em></label>
-            <div class="col-sm-offset-1 col-sm-5">
-              <div class="form-control answer-to-input">{{ }}</div>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="twentyProfit" class="col-sm-6 control-label">20ox. Profit (per can)</label>
-            <div class="col-sm-offset-1 col-sm-5">
-              <div class="form-control answer-to-input">{{ }}</div>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="dispProfit" class="col-sm-6 control-label">Display Profit</label>
-            <div class="col-sm-offset-1 col-sm-5">
-              <div class="form-control answer-to-input">{{ }}</div>
-            </div>
-          </div>
-          <div class="form-group">
-            <label for="profitMargin" class="col-sm-6 control-label">Profit Margin</label>
-            <div class="col-sm-offset-1 col-sm-5">
-              <div class="form-control answer-to-input">{{ }}</div>
-            </div>
-          </div>
-        </form>
-      </div>
-
-    <!-- <div ng-view></div> -->
+    <div ng-view></div>
   </div>
 </body>
 </html>
