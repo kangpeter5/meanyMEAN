@@ -1,9 +1,10 @@
 {
-  "name": "meanyMEAN_2",
+  "name": "rbna_Calculator",
   "version": "0.0.1",
   "dependencies": {
     "express": "~4.2.0",
     "mongoose": "latest",
-    "body-parser": "latest"
+    "body-parser": "latest",
+    "fs": "latest"
   }
 }

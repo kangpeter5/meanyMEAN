@@ -1,0 +1,145 @@
+*{
+	margin: 0;
+	padding: 0;
+}
+#unbold{
+	font-weight: 300;
+}
+body{
+	font-family: "Arial, Helvetica", sans-serif;
+	background: url("/static/img/display.png") no-repeat;
+	background-size: 107% auto;
+}
+
+/* Top Only */
+nav{
+	display: inline-block;
+	vertical-align: top;
+	text-align: center;
+	margin: 20px;
+}
+nav img{
+	width: 247px;
+}
+nav #title{
+	display: inline-block;
+	font-size: 41px;
+	font-weight: bold;
+	width: 61%;
+	margin-left: 20px;
+	margin-top: 41px;
+	text-align: left;
+	vertical-align: top;
+	color: white;
+}
+
+/* main */
+.container{
+	padding-left: 5px;
+	padding-right: 5px;
+	width: 800px;
+}
+.container h1{
+	font-size: 55px;
+	font-weight: bolder;
+}
+.hr{
+	width: 100%;
+	height: 5px;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 9%;
+	margin-bottom: 4%;
+}
+form{
+	margin-top: 30px;
+	margin-bottom: 30px;
+}
+label.col-sm-6.control-label{
+	position: relative;
+    top: 10px;
+	text-align: left;
+	padding-top: 0;
+	padding-right: 0;
+	font-size: 48px;
+}
+.form-group{
+	margin-bottom: 40px;
+}
+.form-group input, .answer-to-input{
+	font-size: 57px;
+	height: 100px;
+	font-weight: bold;
+	text-align: center;
+	vertical-align: middle;
+}
+
+/* 16 ounce */
+#sixteen-oz h1{
+	color: #0A0662;
+}
+#sixteen-oz .hr{
+	color: #0A0662;
+	background: #0A0662;
+}
+#sixteen-oz .form-group .answer-to-input{
+	color: #eeeeee;
+	background: #0A0662;
+}
+
+/* 20 ounce */
+#twenty-oz h1{
+	color: #D00035;
+}
+#twenty-oz .hr{
+	color: #D00035;
+	background: #D00035;
+}
+#twenty-oz .form-group .answer-to-input{
+	color: #eeeeee;
+	background: #D00035;
+}
+
+/* Total Cost and Profit */
+#total-cp h1{
+	color: #666666;
+}
+#total-cp .hr{
+	color: #666666;
+	background: #666666;
+}
+#total-cp .form-group .answer-to-input{
+	color: #eeeeee;
+	background: #666666;
+}
+
+/* ------Responsive----- */
+/* iPhone 6 Plus & 7 Plus */
+@media screen and (max-width : 767px) and (max-device-width : 767px){
+	nav img{
+		width: 315px;
+	}
+
+	nav #title{
+		font-size: 52px;
+		width: 60%;
+		margin-top: 55px;
+	}
+}
+
+/* iPhone 6 & 6s */
+@media screen and (max-width : 413px) and (max-device-width: 413px){
+	nav img{
+		width: 300px;
+	}
+
+	nav #title{
+		font-size: 52px;
+		width: 60%;
+		margin-top: 50px;
+	}
+}
+@media screen and (max-width : 320px) and (max-device-width: 320px){
+
+}
+/* END content-space & content-block */

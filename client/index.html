@@ -1,239 +1,144 @@
 <!DOCTYPE html>
 <html ng-app='myApp'>
 <head>
-  <title>Meany Mean</title>
-  <link rel="stylesheet" type="text/css" href="./style.css">
-  <script src="./angular.js"></script> 
-  <script src="./angular-route.js"></script>
-  <script src="./angular-messages.js"></script>
+  <title>Display Drive Profit Calculator RBNA</title>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="./static/css/style.css">
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.7/angular.min.js"></script>
+
+  <!-- Controllers -->
+  <script type="text/javascript" src="./static/js/controllers/calculatorController.js"></script>
+
   <script>
-    angular.module('myApp', ['ngRoute'])
-      .config(function($routeProvider){
-        $routeProvider
-          .when('/', {
-            templateUrl: "/partials/login.html",
-            controller: "loginsController"
-          })
-          .when('/success', {
-            templateUrl: "/partials/success.html",
-            controller: "successController"
-          })
-          .when('/new_question', {
-            templateUrl: "/partials/new_question.html",
-            controller: "questionsController"
-          })
-          .when('/question/:id', {
-            templateUrl: "/partials/question.html",
-            controller: "questionsController"
-          })
-          .when('/question/:id/new_answer', {
-            templateUrl: "/partials/new_answer.html",
-            controller: "questionsController"
-          })
-          .otherwise({
-            redirectTo: '/'
-          })
-      })
-      .controller('loginsController', loginsController)
-      .controller('successController', successController)
-      .controller('questionsController', questionsController)
-      .controller('answersController', answersController)
-      .factory('loginFactory', loginFactory)
-      .factory('questionFactory', questionFactory)
-      .factory('answerFactory', answerFactory)
-
-//FACTORIES
-    function loginFactory($http, $location){
-      var factory = {};
-      var currentUser = null;
-
-      //a method to get the user if there is one!
-      factory.getUser = function(callback){
-        if(currentUser) callback(currentUser);
-        else{
-          //redirect to the root!
-          $location.path('/');
-        }
-      }
-
-      //a factory method to login the user
-      //will either find an existing user by that name and return it
-      //or the backend will create a new user with that name
-      //either way i expect to get a user object back from the database.
-      factory.login = function(user, callback){
-        $http.post('/login', user).then(function(res){
-          currentUser = res.data;
-          callback();
-        })
-      }
-      return factory;
-    }
-    function questionFactory($http, $location){
-      // var questions = [];
-      var factory = {};
-
-      factory.getQuestion = function(callback){
-        console.log('__in client/question trying to show all questions__');
-
-        $http.get('/success').then(function(res){
-          callback(res);
-        });
-      }
-      factory.addQuestion = function(newQuestion, callback){
-        console.log("__ we in questionFactory___:",  newQuestion);
-
-        $http.post('/addQuestion', newQuestion).then(function(res){
-          console.log(res);
-          $location.path('/success');
-        });
-      }
-
-      factory.showOneQ = function(oneQuestion, callback){
-        console.log("__factory questions__",oneQuestion);
-        $http.get('/question/' + oneQuestion).then(function(res){
-          callback(res);
-        });
-      }
-      return factory;
-    }
-
-//Answer factory
-    function answerFactory($http, $location){
-      // var questions = [];
-      var factory = {};
-
-      factory.getAnswers = function(callback){
-        console.log('__in client/question trying to show all questions__');
-
-        $http.get('/success').then(function(res){
-          callback(res);
-        });
-      }
-      factory.addAnswer = function(newAnswer, userId, callback){
-        console.log("__ we in answerFactory___:",  newAnswer);
-
-        newAnswer.userId = userId;
-        $http.post('/addAnswer', newAnswer).then(function(res){
-          console.log(res);
-          $location.path('/success');
-        });
-      }
-      return factory;
-    }
-//END- Factories
-
-
-//CLIENT CONTROLLERS
-    function loginsController($scope, loginFactory, $location){
-      $scope.login = function(user){
-        loginFactory.login(user, function(){
-          loginFactory.getUser(function(user){
-            console.log(user);
-            $location.path('/success');
-          })
-
-        })
-      }
-    }
-
-    function successController($scope, loginFactory, questionFactory){
-      //when this controller loads
-      //lets check if we're actually signed in
-      //and if not then redirect
-      questionFactory.getQuestion(function(data){
-        console.log(data.data);
-        $scope.questions = data.data;
-      });
-      loginFactory.getUser(function(user){
-        $scope.currentUser = user;
-      })
-    }
-
-    function questionsController($scope, loginFactory, questionFactory, $routeParams){
-      //when this controller loads
-      //lets check if we're actually signed in
-      //and if not then redirect
-      $scope.questions = [];
-      $scope.dup_msg = "";
-      $scope.oneQuestion=[];
-
-      questionFactory.getQuestion(function(data){
-        console.log(data.data);
-        $scope.questions = data.data
-      });
-
-      loginFactory.getUser(function(user){
-        $scope.currentUser = user;
-      });
-
-      //routeParams to transfer id
-      questionFactory.showOneQ($routeParams.id, function(data){
-        $scope.oneQuestion = data;
-      });
-
-      $scope.addQuestion = function(newQuestion, currentUser){
-        console.log("___it;s getting to questionsController!!!__");
-        var userId;
-        newQuestion.userId = currentUser._id;
-
-            console.log('newQuestion', newQuestion, currentUser._id);
-
-        questionFactory.addQuestion(newQuestion, function(){
-          loginFactory.getUser(function(data){
-            $scope.questions = data.data;
-          });
-        })
-      }
-    }
-
-    function answersController($scope, loginFactory, questionFactory, answerFactory, $routeParams){
-      //when this controller loads
-      //lets check if we're actually signed in
-      //and if not then redirect
-      $scope.answers = [];
-      $scope.dup_msg = "";
-
-      answerFactory.getAnswers(function(data){
-        console.log(data.data);
-        $scope.answers = data.data;
-      });
-
-      questionFactory.getQuestion(function(question){
-        console.log(question);
-        $scope.getQuestion = question;
-      });
-
-      loginFactory.getUser(function(user){
-        $scope.currentUser = user;
-      });
-
-      //routeParams to transfer id
-      // questionFactory.showOneQ($routeParams.id, function(data){
-      //   $scope.oneQuestion = data.data;
-      // });
-
-      $scope.addAnswer = function(newAnswer, oneQuestion, currentUser){
-        console.log("___it;s getting to answersController!!!__", newAnswer, questionId);
-
-        newAnswer.questionId = oneQuestion._id;
-        newQuestion.userId = currentUser._id;
-
-        answerFactory.addAnswer(newAnswer, function(){
-          questionFactory.getQuestion(function(data){
-            loginFactory.getUser(function(data){
-              $scope.questions = data.data;
-            });
-          });
-        });
-      }
-    }
-//END - CLIENT CONTROLLERS
+    // angular.module('myApp', ['ngRoute'])
+    //   .config(function($routeProvider){
+    //     $routeProvider
+    //       .when('/', {
+    //         templateUrl: "./partials/display.html",
+    //         controller: "calculatorController"
+    //       })
+    //       .otherwise({
+    //         redirectTo: '/'
+    //       })
+    //   })
+    //   .controller('calculatorController', calculatorController);
+    function calculatorController($scope){
+      // Sixteen oz
+      $scope.costPerCanSixteen = function(){
+        return $scope.priceSixteen/(24*$scope.casesSixteen);
+      };
+    };
   </script>
 </head>
 <body>
-<div class="container">
-  <div ng-view>
+  <nav>
+    <a href="/"><img src="./static/img/rbna_logo.png"></a>
+    <div id="title">DISPLAY DRIVE PROFIT CALCULATOR</div>
+  </nav>
+
+  <div class="container">
+    <div id="sixteen-oz" ng-controller="calculatorController">
+      <div class='hr'></div>
+      <h1>16 <span id="unbold">OUNCE</span></h1>
+      <form class="form-horizontal">
+        <div class="form-group">
+          <label for="inputCases" class="col-sm-6 control-label">Amount of Cases</label>
+          <div class="col-sm-offset-1 col-sm-5">
+            <input type="number" min="0.01" step="0.01" max="2500" class="form-control" ng-model="casesSixteen"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="inputCost" class="col-sm-6 control-label">Cost Per Case</label>
+          <div class="col-sm-offset-1 col-sm-5">
+            <input type="number" min="0.01" step="0.01" max="2500" class="form-control" placeholder="29.40" ng-model="priceSixteen"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="canCost" class="col-sm-6 control-label">Cost Per Can</label>
+          <div class="col-sm-offset-1 col-sm-5">
+            <input type="text" class="form-control answer-to-input" value="{{costPerCanSixteen()}}"/>
+          </div>
+        </div>
+        <div class="form-group">
+          <label for="pricePerCan" class="col-sm-6 control-label">Price Per Can</label>
+          <div class="col-sm-offset-1 col-sm-5">
+            <input type="text" class="form-control answer-to-input" value="{{costPerCanSixteen()}}">
+          </div>
+        </div>
+      </form>
+    </div>
+
+      <div id="twenty-oz">
+        <div class='hr'></div>
+        <h1>20 <span id="unbold">OUNCE</span></h1>
+        <form class="form-horizontal">
+          <div class="form-group">
+            <label for="inputCases" class="col-sm-6 control-label">Amount of Cases</label>
+            <div class="col-sm-offset-1 col-sm-5">
+              <input type="number" min="0.01" step="0.01" max="2500" class="form-control" ng-model="priceTwenty">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="inputCost" class="col-sm-6 control-label">Cost Per Case</label>
+            <div class="col-sm-offset-1 col-sm-5">
+              <input type="number" min="0.01" step="0.01" max="2500" class="form-control" ng-model="casesTwenty" placeholder="35.70">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="canCost" class="col-sm-6 control-label">Cost Per Can</label>
+            <div class="col-sm-offset-1 col-sm-5">
+              <input type="text" class="form-control" value="{{priceTwenty/(24*casesTwenty)}}">
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="pricePerCan" class="col-sm-6 control-label">Price Per Can</label>
+            <div class="col-sm-offset-1 col-sm-5">
+              <div class="form-control answer-to-input">{{ }}</div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+      <div id="total-cp">
+        <div class='hr'></div>
+        <h1>TOTAL <span id="unbold">COST & PROFIT</span></h1>
+        <form class="form-horizontal">
+          <div class="form-group">
+            <label for="costToRetail" class="col-sm-6 control-label">Cost to Retail</label>
+            <div class="col-sm-offset-1 col-sm-5">
+              <input type="text" class="form-control" value="{{priceTwenty/(24*casesTwenty)}}">
+            </div> 
+          </div>
+          <div class="form-group">
+            <label for="sixteenProfit" class="col-sm-6 control-label">16oz. Profit <em>(per can)</em></label>
+            <div class="col-sm-offset-1 col-sm-5">
+              <div class="form-control answer-to-input">{{ }}</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="twentyProfit" class="col-sm-6 control-label">20ox. Profit (per can)</label>
+            <div class="col-sm-offset-1 col-sm-5">
+              <div class="form-control answer-to-input">{{ }}</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="dispProfit" class="col-sm-6 control-label">Display Profit</label>
+            <div class="col-sm-offset-1 col-sm-5">
+              <div class="form-control answer-to-input">{{ }}</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="profitMargin" class="col-sm-6 control-label">Profit Margin</label>
+            <div class="col-sm-offset-1 col-sm-5">
+              <div class="form-control answer-to-input">{{ }}</div>
+            </div>
+          </div>
+        </form>
+      </div>
+
+    <!-- <div ng-view></div> -->
   </div>
-</div>
 </body>
 </html>
